@@ -4,6 +4,8 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
 import { AppState } from './app.service';
+import {CasinoState} from "./casino/casino.state";
+import {Store} from "@ngrx/store";
 
 /*
  * App Component
@@ -52,8 +54,6 @@ import { AppState } from './app.service';
       <router-outlet></router-outlet>
     </main>
 
-    <pre class="app-state">this.appState.state = {{ appState.state | json }}</pre>
-
     <footer>
       <span>WebPack Angular 2 Starter by <a [href]="url">@AngularClass</a></span>
       <div>
@@ -65,25 +65,18 @@ import { AppState } from './app.service';
   `
 })
 export class App {
+
   angularclassLogo = 'assets/img/angularclass-avatar.png';
   name = 'Angular 2 Webpack Starter';
   url = 'https://twitter.com/AngularClass';
 
+  casinoState: Store<CasinoState>;
+
   constructor(
-    public appState: AppState) {
-
-  }
-
-  ngOnInit() {
-    console.log('Initial App State', this.appState.state);
+    private store: Store<CasinoState>
+  ) {
+    // todo: how to pass the freaking store down to the router-outlet
+    // this.casinoState = this.store.select<CasinoState>('casinoState');
   }
 
 }
-
-/*
- * Please review the https://github.com/AngularClass/angular2-examples/ repo for
- * more angular app examples that you may copy/paste
- * (The examples may not be updated as quickly. Please open an issue on github for us to update it)
- * For help or questions please contact us at @AngularClass on twitter
- * or our chat on Slack at https://AngularClass.com/slack-join
- */

@@ -1,27 +1,56 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { GameService } from '../services/game.service';
+import { Observable } from 'rxjs';
+import { Game } from "../models";
+import { Category, CategoryLabel } from "../models/game.model";
+import {Store} from "@ngrx/store";
+import {CasinoState} from "./casino.state";
+
+
 
 @Component({
   selector: 'casino',
-  styles: [`
-  `],
   template: `
     <h1>Casino</h1>
     <div>
       <header>
         <!-- game categories -->
+        <ul>
+          <li *ngFor="let label of categoriesLabels">
+            <category-selector [category]="label" [store]="store"></category-selector>
+        </ul>
         <!-- game search -->
       </header>
       <section>
         <!-- games -->
+        <ul>
+            <li *ngFor="let game of games">
+                <game-thumbnail [game]="game"></game-thumbnail>
+            </li>
+        </ul>
       </section>
     </div>
   `
 })
 export class Casino {
-  localState: any;
-  constructor(public route: ActivatedRoute) {
 
+  static StoreEvents = {
+    newGames: `CasinoComponent:newGames`,
+    newCategories: `CasinoComponent:newCategories`
+  };
+
+  private games: Game[];
+
+  categoriesLabels: CategoryLabel[];
+  casinoState: Observable<CasinoState>;
+
+  constructor(
+    public route: ActivatedRoute,
+    private gameService: GameService,
+    private store: Store<CasinoState>
+  ) {
+    this.casinoState = this.store.select<CasinoState>('casinoLobby');
   }
 
   ngOnInit() {
@@ -29,28 +58,32 @@ export class Casino {
       .data
       .subscribe((data: any) => {
         // your resolved data from route
-        this.localState = data.yourData;
       });
 
-    console.log('hello `Casino` component');
-    // static data that is bundled
-    // var mockData = require('assets/mock-data/mock-data.json');
-    // console.log('mockData', mockData);
-    // if you're working with mock data you can also use http.get('assets/mock-data/mock-data.json')
-    this.asyncDataWithWebpack();
-  }
-  asyncDataWithWebpack() {
-    // you can also async load mock data with 'es6-promise-loader'
-    // you would do this if you don't want the mock-data bundled
-    // remember that 'es6-promise-loader' is a promise
-    setTimeout(() => {
+    this.casinoState.subscribe(state => {
+      console.log(state);
+      this.categoriesLabels = state.allCategories.map(category => {
+        return {
+          name: category.name,
+          slug: category.slug,
+          totalGames: category.games.length
+        }
+      });
+      this.games = state.filteredGames;
+    });
 
-      System.import('../../assets/mock-data/mock-data.json')
-        .then(json => {
-          console.log('async mockData', json);
-          this.localState = json;
-        });
+    this.gameService.allGames.subscribe(games =>
+      this.store.dispatch({
+        type: Casino.StoreEvents.newGames,
+        payload: games
+      })
+    );
 
+    this.gameService.allCategories.subscribe(categories => {
+      this.store.dispatch({
+        type: Casino.StoreEvents.newCategories,
+        payload: categories
+      })
     });
   }
 
