@@ -8,9 +8,11 @@ import { CategoryLabel } from "../models/game.model";
   selector: 'category-selector',
   template: `
     <div id="{{category.slug}}">
-        <button (click)="onClick()">
+        <button (click)="onClick()"
+          class="btn btn-lg btn-primary"
+          [ngClass]="{ 'active': selected }">
           {{category.name}}
-          <span>{{category.totalGames}}</span>
+          <span class="badge">{{category.totalGames}}</span>
         </button>
     </div> 
   `
@@ -29,13 +31,6 @@ export class CategorySelector {
 
   @Input()
   store: Store<any>;
-
-  ngOnInit() {
-    if (this.selected) {
-      
-      console.log(`selected ${this.category.slug}`);
-    }
-  }
 
   onClick() {
     this.store.dispatch({

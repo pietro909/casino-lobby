@@ -13,19 +13,22 @@ import {CategorySelector} from './category-selector';
 @Component({
   selector: 'casino',
   styleUrls: [
-    './casino.style.scss'
+    // './casino.style.scss'
   ],
   template: `
-    <h1>Casino</h1>
+    <div class="page-header">
+      <h1>Casino</h1>
+    </div>
     <article>
       <header>
         <!-- game categories -->
-        <ul>
+        <ul class="row categories">
           <li *ngFor="let label of categoriesLabels">
             <category-selector
               [category]="label"
               [store]="store"
-              [selected]="label.slug === defaultCategory">
+              [selected]="label.slug === currentCategory"
+              class="col-xs-4">
             </category-selector>
         </ul>
         <search-box [store]="store"></search-box>
@@ -53,7 +56,7 @@ export class Casino {
   private games: Game[];
 
   categoriesLabels: CategoryLabel[];
-  defaultCategory: string = 'popular-games';
+  currentCategory: string = 'popular-games';
   casinoState: Observable<CasinoState>;
 
   constructor(
@@ -73,6 +76,7 @@ export class Casino {
 
     this.casinoState.subscribe(state => {
       console.log(state);
+      this.currentCategory = state.filters.category;
       this.categoriesLabels = state.allCategories.map(category => {
         return {
           name: category.name,
@@ -81,7 +85,6 @@ export class Casino {
         }
       });
       this.games = state.filteredGames;
-      // this.defaultCategory = state.filters.category;
     });
 
     this.gameService.gameCategoryBundle.subscribe(gameCategoryBundle => {
@@ -93,7 +96,7 @@ export class Casino {
 
     this.store.dispatch({
       type: CategorySelector.StoreEvents.selectCategory,
-      payload: this.defaultCategory
+      payload: this.currentCategory
     });
   }
 

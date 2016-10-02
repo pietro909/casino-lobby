@@ -175,12 +175,16 @@ module.exports = function(options) {
           loader: 'file'
         },
 
-        /* SASS loader */
+        // /* SASS loader */
         {
           test: /\.scss$/,
           exclude: /node_modules/,
           loaders: ['raw-loader', 'sass-loader'] // sass-loader not scss-loader
         }
+        // { test: /\.scss$/, loaders: ['style', 'css', 'postcss', 'sass'] }
+        // { test: /\.(woff2?|ttf|eot|svg)$/, loader: 'url?limit=10000' },
+        // Bootstrap 4
+        // { test: /bootstrap\/dist\/js\/umd\//, loader: 'imports?jQuery=jquery' 
       ],
 
       postLoaders: [

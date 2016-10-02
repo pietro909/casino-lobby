@@ -1,11 +1,21 @@
 import {Observable} from 'rxjs/Rx';
-import {ElementRef, OnInit, Component, Input} from '@angular/core';
+import {ElementRef, OnInit, Component, Input, ViewEncapsulation} from '@angular/core';
 import {Store} from '@ngrx/store';
 
 @Component({
   selector: 'search-box',
+  styles: [`
+    search-box {
+      display: block;
+      margin: 1.8rem 0.6rem;
+    }
+  `],
+  encapsulation: ViewEncapsulation.None,
   template: `
-    <input type="text" class="form-control" placeholder="Search" autofocus>
+    <div class="input-group">
+      <span class="input-group-addon" id="basic-addon1">@</span>
+      <input type="text" class="form-control" placeholder="Search" autofocus>
+    </div>
     `
 })
 

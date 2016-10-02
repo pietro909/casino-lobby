@@ -1,41 +1,55 @@
 $primary: #f0634c;
 $secondary: #338095;
 $tertiarty: #9fdc46;
-$background: white;
+$white: white;
+$background: $white;
 $black: black;
 
-html, body, nav, div, span, h1, h2, h3, img, main, article, header, ul, li,
-app {
-    display: flex;
-    flex: 1 1 auto;
-    max-width: 100%;
+ul {
+  list-style-type: none;
+  &.categories {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    li {
+      display: inline-block;
+      button {
+        min-width: 20rem;
+      }
+    }
+  }
 }
 
-html, body {
-  height: 100%;
-  font-family: Arial, Helvetica, sans-serif;
-  background-color: $background;
-  display: flex;
-  justify-content: center;
+category-selector.col-xs-4 {
+  padding: 0.2rem;
 }
 
-article, app {
-  flex-direction: column;
+a.thumbnail {
+    padding-top: 2.6rem;
+    .caption h3 {
+        text-align: center;
+        margin: 0;
+    }
 }
 
-nav {
-  flex-direction: row;
-  justify-content: space-around;
+.btn-primary {
+    color: #fff;
+    background-color: $secondary;
 }
 
-span {
-  justify-content: center;
+.breadcrumb {
+    background-color: $primary;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
 }
 
-// CASINO
+main.container {
+    padding-top: 3.8rem;
+}
 
-casino {
-  display: flex;
-  flex: 1 1 auto;
-  max-width: 100%;
+a {
+  color: $white;
 }

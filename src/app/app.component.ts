@@ -18,36 +18,31 @@ import {Store} from "@ngrx/store";
     './app.style.scss'
   ],
   template: `
-    <nav>
-      <span>
+    <ol class="breadcrumb">
+      <li>
         <a [routerLink]=" ['./'] ">
           Index
         </a>
-      </span>
-      <span>
+      </li>
+      <li>
         <a [routerLink]=" ['./about'] ">
           About
         </a>
-      </span>
-      <span>
+      </li>
+      <li>
         <a [routerLink]=" ['./casino'] ">
           Casino
         </a>
-      </span>
-    </nav>
+      </li>
+    </ol>
 
-    <main>
+    <main class="container">
       <router-outlet></router-outlet>
     </main>
 
     <footer>
-      <span>WebPack Angular 2 Starter by <a [href]="url">@AngularClass</a></span>
-      <div>
-        <a [href]="url">
-          <img [src]="angularclassLogo" width="25%">
-        </a>
-      </div>
-    </footer>
+      <span>Casino Lobby demo</span>
+   </footer>
   `
 })
 export class App {
