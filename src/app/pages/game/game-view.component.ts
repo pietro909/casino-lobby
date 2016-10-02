@@ -1,11 +1,10 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { BrowserModule, DomSanitizer, SafeStyle } from '@angular/platform-browser';
+import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
 
-import { Game } from '../models';
-import { GameService } from '../services/game.service';
-import { CasinoState } from './casino.state';
+import { CasinoState, Game } from '../../models';
+import { GameService } from '../../services';
 
 @Component({
   selector: 'game-view',

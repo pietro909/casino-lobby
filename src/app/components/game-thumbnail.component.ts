@@ -1,7 +1,6 @@
 import { Component, Input, ChangeDetectionStrategy} from '@angular/core';
 import { Game } from "../models";
 
-
 @Component({
   selector: 'game-thumbnail',
   changeDetection: ChangeDetectionStrategy.OnPush,

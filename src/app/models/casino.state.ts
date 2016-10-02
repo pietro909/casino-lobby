@@ -1,4 +1,5 @@
-import {Game, Category} from "../models/game.model";
+import { Game } from './game.model';
+import { Category } from './category.model';
 
 export interface CasinoStateFilters {
   category: string;

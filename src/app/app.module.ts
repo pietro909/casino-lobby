@@ -1,41 +1,27 @@
-import { NgModule, ApplicationRef } from '@angular/core';
-import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
+import { StoreModule } from "@ngrx/store";
 import { LazyLoadImageModule } from 'ng2-lazyload-image';
 
-/*
- * Platform and Environment providers/directives/pipes
- */
 import { ENV_PROVIDERS } from './environment';
 import { ROUTES } from './app.routes';
-// App is our top level component
 import { App } from './app.component';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
-import { AppState, InteralStateType } from './app.service';
-import { About } from './about';
-import { Casino } from './casino';
+import { Casino, GameView, NoContent, About } from './pages';
 import { SERVICES } from './services';
-import { NoContent } from './no-content';
-import { GameThumbnail } from './casino/game-thumbnail.component';
-import { GameView } from './casino';
-import { CategorySelector } from './casino/category-selector';
-import { StoreModule } from "@ngrx/store";
-import { gamesReducer } from './casino/game.reducer'
-import { SearchBox } from "./casino/search-box.component";
+import { SearchBox, GameThumbnail, CategorySelector } from './components';
+import { gamesReducer } from './reducers'
 
 // Application wide providers
 const APP_PROVIDERS = [
-  ...APP_RESOLVER_PROVIDERS,
-  AppState
+  ...APP_RESOLVER_PROVIDERS
 ];
 
 const storeManager = StoreModule.provideStore({ casinoLobby: gamesReducer });
 
-/**
- * `AppModule` is the main entry point into Angular2's bootstraping process
- */
 @NgModule({
   bootstrap: [ App ],
   declarations: [

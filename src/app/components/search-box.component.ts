@@ -1,6 +1,6 @@
-import {Observable} from 'rxjs/Rx';
-import {ElementRef, OnInit, Component, Input, ViewEncapsulation} from '@angular/core';
-import {Store} from '@ngrx/store';
+import { ElementRef, OnInit, Component, Input, ViewEncapsulation } from '@angular/core';
+import { Observable } from 'rxjs/Rx';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'search-box',
@@ -13,7 +13,7 @@ import {Store} from '@ngrx/store';
   encapsulation: ViewEncapsulation.None,
   template: `
     <div class="input-group">
-      <span class="input-group-addon" id="basic-addon1">@</span>
+      <span class="input-group-addon" id="basic-addon1">Search</span>
       <input type="text" class="form-control" placeholder="Search" autofocus>
     </div>
     `

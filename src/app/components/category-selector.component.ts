@@ -1,8 +1,7 @@
-import { Component, Input, Output } from '@angular/core';
-import { Observable } from "rxjs";
-import {Store} from "@ngrx/store";
+import { Component, Input } from '@angular/core';
+import { Store } from '@ngrx/store';
 
-import { CategoryLabel } from "../models/game.model";
+import { CategoryLabel } from '../models';
 
 @Component({
   selector: 'category-selector',

@@ -30,6 +30,24 @@ type Json = {
   [key: string]: any
 }
 
+const mapRawGame: (Json) => Game =
+  rawGame => {
+    return <Game> {
+      background: rawGame['background'],
+      thumbnail: rawGame['thumbnail'],
+      id: rawGame['id'],
+      name: rawGame['name'],
+      description: rawGame['description'],
+      label: rawGame['label'],
+      rating: rawGame['rating'],
+      slug: rawGame['slug'],
+      height: parseInt(rawGame['height'], 10),
+      width: rawGame['width'],
+      rows: rawGame['rows'],
+      cols: rawGame['cols']
+    };
+  };
+
 @Injectable()
 export class GameService {
 
@@ -39,54 +57,28 @@ export class GameService {
 
   constructor(private http: Http) {
 
-    // this.http.get(ALL_GAMES, REQUEST_OPTIONS)
-    //   .map((response: any) => JSON.parse(response._body))
-    //   .map(this.mapGames)
-    //   .subscribe(gamesAndCategories => {
-    //     this.allGames.next(gamesAndCategories.games);
-    //     this.allCategories.next(gamesAndCategories.categories);
-    //   });
+    this.http.get(ALL_GAMES, REQUEST_OPTIONS)
+      .map((response: any) => JSON.parse(response._body))
+      .map(this.mapGames)
+      .subscribe(gamesAndCategories => {
+        this.allGames.next(gamesAndCategories.games);
+        this.allCategories.next(gamesAndCategories.categories);
+        this.gameCategoryBundle.next(gamesAndCategories);
+      });
 
-    setTimeout(() => {
-
-      System.import('../../assets/mock-data/game-categories.json')
-        .then(json => {
-          console.log('async mockData', json);
-          const gamesAndCategories = this.mapGames(json);
-          this.allGames.next(gamesAndCategories.games);
-          this.allCategories.next(gamesAndCategories.categories);
-          this.gameCategoryBundle.next(gamesAndCategories);
-        });
-    }, 100);
-  }
+   }
 
   /**
    * Retrieves game based on the id from the server
    * @param id the game's id
    * @return {Observable<Game>}
    */
-  getGameById(id: String): Observable<Game> {
-    const url = GAME_BY_ID.replace(/{id}/, id);
+  getGameById(id: string): Observable<Game> {
+    //const pattern = new RegExp('{id}');
+    const url = GAME_BY_ID.replace(/\{id}/, id);
     return this.http.get(url, REQUEST_OPTIONS)
       .map((response: any) => JSON.parse(response._body))
-      .map(this.mapRawGame)
-  }
-
-  private mapRawGame(rawGame: Json): Game {
-    return <Game> {
-          background: rawGame['background'],
-          thumbnail: rawGame['thumbnail'],
-          id: rawGame['id'],
-          name: rawGame['name'],
-          description: rawGame['description'],
-          label: rawGame['label'],
-          rating: rawGame['rating'],
-          slug: rawGame['slug'],
-          height: parseInt(rawGame['height'], 10),
-          width: rawGame['width'],
-          rows: rawGame['rows'],
-          cols: rawGame['cols']
-        };
+      .map(mapRawGame)
   }
 
   /**
@@ -100,7 +92,7 @@ export class GameService {
 
     const categories: Category[] = body._embedded.game_categories.map(category => {
       const games = category._embedded.games.map(rawGame => {
-        const game: Game = this.mapRawGame(rawGame);
+        const game: Game = mapRawGame(rawGame);
         allGames.push(game);
         return game;
       });

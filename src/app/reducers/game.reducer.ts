@@ -1,9 +1,9 @@
 import { ActionReducer, Action } from '@ngrx/store';
-import {CasinoState} from "./casino.state";
-import {CategorySelector} from "./category-selector";
-import {Casino} from "./casino.component";
-import {Game, Category, GameCategoryBundle } from "../models/game.model";
-import {SearchBox} from "./search-box.component";
+
+import { CasinoState } from '../models/casino.state';
+import { Casino } from '../pages';
+import { SearchBox, CategorySelector } from '../components';
+import { Game, Category, GameCategoryBundle } from '../models';
 
 const initialState: CasinoState = {
   allGames: [],
@@ -15,6 +15,15 @@ const initialState: CasinoState = {
   }
 };
 
+/**
+ * Filter the categories by a filter and returns the category's games.
+ * Returns the fallback value if filter is null.
+ *
+ * @param categories Categories to filter
+ * @param category the filter
+ * @param orElse fallback value for filter = null
+ * @returns {Game[]}
+ */
 const safeFilterByCategory =
   (categories: Category[], category: string | null, orElse: Game[] = []): Game[] => {
     if (category === null) {
@@ -24,6 +33,14 @@ const safeFilterByCategory =
     return currentCategory ? currentCategory.games : [];
   };
 
+/**
+ * Filter the games by name.
+ * If the name is null, calls the orElse() function and returns its value.
+ * @param games the Games to filter
+ * @param name the filter
+ * @param orElse fallback function
+ * @returns {Game[]}
+ */
 const safeFilterByName =
   (games: Game[], name: string | null, orElse: () => Game[]): Game[] => {
     if (name === null) {
@@ -35,7 +52,9 @@ const safeFilterByName =
 
 export const gamesReducer: ActionReducer<CasinoState> =
   (state: CasinoState = initialState, action: Action) => {
+
     switch (action.type) {
+
       case CategorySelector.StoreEvents.selectCategory:
         return Object.assign({}, state, {
           filteredGames: safeFilterByCategory(state.allCategories, action.payload),
@@ -43,22 +62,26 @@ export const gamesReducer: ActionReducer<CasinoState> =
             category: action.payload
           })
         });
+
       case Casino.StoreEvents.newGames:
         return Object.assign({}, state, {
           allGames: action.payload
         });
+
       case Casino.StoreEvents.newCategories:
         return Object.assign({}, state, {
           allCategories: action.payload,
           filteredGames: safeFilterByCategory(state.allCategories, state.filters.category, state.allGames)
         });
-        case Casino.StoreEvents.newBundle:
-          const payload = <GameCategoryBundle> action.payload;
-          return Object.assign({}, state, {
-            allCategories: payload.categories,
-            allGames: payload.games,
-            filteredGames: safeFilterByCategory(payload.categories, state.filters.category, payload.games)
-          });
+
+      case Casino.StoreEvents.newBundle:
+        const payload = <GameCategoryBundle> action.payload;
+        return Object.assign({}, state, {
+          allCategories: payload.categories,
+          allGames: payload.games,
+          filteredGames: safeFilterByCategory(payload.categories, state.filters.category, payload.games)
+        });
+
       case SearchBox.StoreEvents.text:
         const name = (action.payload.length > 0) ? action.payload : null;
         const orElse: () => Game[] =
@@ -74,7 +97,8 @@ export const gamesReducer: ActionReducer<CasinoState> =
             name: name
           })
         });
-     default:
+
+      default:
         return state;
     }
   };

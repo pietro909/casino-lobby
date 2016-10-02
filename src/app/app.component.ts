@@ -1,8 +1,6 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
-import { AppState } from './app.service';
-import { CasinoState } from "./casino/casino.state";
-import { Store } from '@ngrx/store';
+import { GameService } from './services';
 
 @Component({
   selector: 'app',
@@ -17,12 +15,7 @@ import { Store } from '@ngrx/store';
           Index
         </a>
       </li>
-      <li>
-        <a [routerLink]=" ['./about'] ">
-          About
-        </a>
-      </li>
-      <li>
+     <li>
         <a [routerLink]=" ['./casino'] ">
           Casino
         </a>
@@ -44,8 +37,10 @@ export class App {
   name = 'Casino Lobby with Angular 2';
   url = 'https://github.com/pietro909/casino-lobby';
 
-  constructor() {
+  constructor(
+    private gameService: GameService,
+  ) {
     // question: how to pass the freaking store down to the router-outlet
-  }
+   }
 
 }

@@ -7,13 +7,13 @@ import {
   animate
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { GameService } from '../services/game.service';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { Game } from "../models";
-import { Category, CategoryLabel } from "../models/game.model";
-import { Store } from "@ngrx/store";
-import { CasinoState } from "./casino.state";
-import { CategorySelector } from './category-selector';
+
+import { Game } from '../../models';
+import { CasinoState, CategoryLabel } from '../../models';
+import { GameService } from '../../services';
+import { CategorySelector } from '../../components';
 
 
 @Component({
@@ -46,11 +46,11 @@ import { CategorySelector } from './category-selector';
               class="col-xs-4">
             </category-selector>
         </ul>
-        <search-box [store]="store"></search-box>
         <!-- game search -->
+        <search-box [store]="store"></search-box>
       </header>
       <section>
-        <!-- games -->
+        <!-- games list -->
         <ul>
             <li *ngFor="let game of games"> 
               <game-thumbnail
@@ -91,12 +91,6 @@ export class Casino {
   }
 
   ngOnInit() {
-    this.route
-      .data
-      .subscribe((data: any) => {
-        // your resolved data from route
-      });
-
     this.casinoState.subscribe(state => {
       console.log(state);
       this.currentCategory = state.filters.category;

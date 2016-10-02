@@ -83,3 +83,12 @@ game-view {
   display: flex;
 }
 
+about {
+  a {
+    color: $primary;
+  }
+  ul {
+    list-style-type: cjk-ideographic;
+  }
+}
+

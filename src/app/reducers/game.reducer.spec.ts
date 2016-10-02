@@ -1,6 +1,6 @@
-import {CategorySelector} from "./category-selector";
+import {CategorySelector} from "../components";
 import {gamesReducer} from './game.reducer';
-import {CasinoState} from './casino.state';
+import {CasinoState} from '../models/casino.state';
 import {stateAsString} from './game.state.mock-data';
 
 const initialState: CasinoState = {
