@@ -1,16 +1,9 @@
-/*
- * Angular 2 decorators and services
- */
 import { Component, ViewEncapsulation } from '@angular/core';
 
 import { AppState } from './app.service';
-import {CasinoState} from "./casino/casino.state";
-import {Store} from "@ngrx/store";
+import { CasinoState } from "./casino/casino.state";
+import { Store } from '@ngrx/store';
 
-/*
- * App Component
- * Top Level Component
- */
 @Component({
   selector: 'app',
   encapsulation: ViewEncapsulation.None,
@@ -48,16 +41,11 @@ import {Store} from "@ngrx/store";
 export class App {
 
   angularclassLogo = 'assets/img/angularclass-avatar.png';
-  name = 'Angular 2 Webpack Starter';
-  url = 'https://twitter.com/AngularClass';
+  name = 'Casino Lobby with Angular 2';
+  url = 'https://github.com/pietro909/casino-lobby';
 
-  // casinoState: Store<CasinoState>;
-
-  constructor(
-    // private store: Store<CasinoState>
-  ) {
-    // todo: how to pass the freaking store down to the router-outlet
-    // this.casinoState = this.store.select<CasinoState>('casinoState');
+  constructor() {
+    // question: how to pass the freaking store down to the router-outlet
   }
 
 }

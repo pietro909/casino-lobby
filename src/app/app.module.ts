@@ -22,7 +22,7 @@ import { GameThumbnail } from './casino/game-thumbnail.component';
 import { GameView } from './casino';
 import { CategorySelector } from './casino/category-selector';
 import { StoreModule } from "@ngrx/store";
-import { GamesReducer } from './casino/game.reducer'
+import { gamesReducer } from './casino/game.reducer'
 import { SearchBox } from "./casino/search-box.component";
 
 // Application wide providers
@@ -31,7 +31,7 @@ const APP_PROVIDERS = [
   AppState
 ];
 
-const storeManager = StoreModule.provideStore({ casinoLobby: GamesReducer });
+const storeManager = StoreModule.provideStore({ casinoLobby: gamesReducer });
 
 /**
  * `AppModule` is the main entry point into Angular2's bootstraping process

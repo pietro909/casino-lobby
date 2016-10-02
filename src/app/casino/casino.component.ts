@@ -4,7 +4,8 @@ import {
   state,
   style,
   transition,
-  animate } from '@angular/core';
+  animate
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GameService } from '../services/game.service';
 import { Observable } from 'rxjs';
@@ -17,9 +18,6 @@ import { CategorySelector } from './category-selector';
 
 @Component({
   selector: 'casino',
-  styleUrls: [
-    // './casino.style.scss'
-  ],
   animations: [
     trigger('thumbnailState', [
       state('inactive', style({

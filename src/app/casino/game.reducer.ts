@@ -33,7 +33,7 @@ const safeFilterByName =
     return games.filter(game => matcher.test(game.name));
   };
 
-export const GamesReducer: ActionReducer<CasinoState> =
+export const gamesReducer: ActionReducer<CasinoState> =
   (state: CasinoState = initialState, action: Action) => {
     switch (action.type) {
       case CategorySelector.StoreEvents.selectCategory:
