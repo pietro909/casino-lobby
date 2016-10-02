@@ -15,7 +15,7 @@ import {Store} from "@ngrx/store";
   selector: 'app',
   encapsulation: ViewEncapsulation.None,
   styleUrls: [
-    './app.style.css'
+    './app.style.scss'
   ],
   template: `
     <nav>
@@ -24,25 +24,11 @@ import {Store} from "@ngrx/store";
           Index
         </a>
       </span>
-      |
-      <span>
-        <a [routerLink]=" ['./home'] ">
-          Home
-        </a>
-      </span>
-      |
-      <span>
-        <a [routerLink]=" ['./detail'] ">
-          Detail
-        </a>
-      </span>
-      |
       <span>
         <a [routerLink]=" ['./about'] ">
           About
         </a>
       </span>
-      |
       <span>
         <a [routerLink]=" ['./casino'] ">
           Casino
@@ -70,10 +56,10 @@ export class App {
   name = 'Angular 2 Webpack Starter';
   url = 'https://twitter.com/AngularClass';
 
-  casinoState: Store<CasinoState>;
+  // casinoState: Store<CasinoState>;
 
   constructor(
-    private store: Store<CasinoState>
+    // private store: Store<CasinoState>
   ) {
     // todo: how to pass the freaking store down to the router-outlet
     // this.casinoState = this.store.select<CasinoState>('casinoState');

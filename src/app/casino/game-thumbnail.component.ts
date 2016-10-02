@@ -7,7 +7,7 @@ import { Game } from "../models";
   template: `
     <div id="{{game.id}}">
         <h3>{{game.name}}</h3> 
-        <img src="{{game.thumbnail}}">
+        <!--<img src="{{game.thumbnail}}">-->
         <p>{{game.description}}</p>
     </div> 
   `

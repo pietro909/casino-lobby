@@ -13,16 +13,15 @@ import { ROUTES } from './app.routes';
 import { App } from './app.component';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { AppState, InteralStateType } from './app.service';
-import { Home } from './home';
 import { About } from './about';
 import { Casino } from './casino';
 import { SERVICES } from './services';
 import { NoContent } from './no-content';
-import { XLarge } from './home/x-large';
 import { GameThumbnail } from './casino/game-thumbnail.component';
 import { CategorySelector } from './casino/category-selector';
 import { StoreModule } from "@ngrx/store";
 import { GamesReducer } from './casino/game.reducer'
+import { SearchBox } from "./casino/search-box.component";
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -40,12 +39,11 @@ const storeManager = StoreModule.provideStore({ casinoLobby: GamesReducer });
   declarations: [
     App,
     About,
-    Home,
     Casino,
     NoContent,
-    XLarge,
     GameThumbnail,
-    CategorySelector
+    CategorySelector,
+    SearchBox
   ],
   imports: [ // import Angular's modules
     BrowserModule,

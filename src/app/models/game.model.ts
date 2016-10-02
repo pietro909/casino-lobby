@@ -28,3 +28,8 @@ export type CategoryLabel = {
   slug: string;
   totalGames: number;
 }
+
+export type GameCategoryBundle = {
+  games: Game[];
+  categories: Category[];
+}

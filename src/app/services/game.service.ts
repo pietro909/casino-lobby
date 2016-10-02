@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import {Observable, BehaviorSubject} from 'rxjs';
-import { Game, Category } from "../models";
+import { Game, Category, GameCategoryBundle } from "../models";
 
 const GAMES_API = `https://staging-frontapi.cherrytech.com`;
 const ALL_GAMES = `${GAMES_API}/game-categories`;
@@ -25,11 +25,6 @@ type GameCategoryResponse = {
   },
 }
 
-type GameCategoryBundle = {
-  games: Game[];
-  categories: Category[];
-}
-
 type Json = {
   [key: string]: any
 }
@@ -37,11 +32,9 @@ type Json = {
 @Injectable()
 export class GameService {
 
-  private games: Game[];
-  private categories: Category[];
-
   allGames: BehaviorSubject<Game[]> = new BehaviorSubject([]);
   allCategories: BehaviorSubject<Category[]> = new BehaviorSubject([]);
+  gameCategoryBundle: BehaviorSubject<GameCategoryBundle> = new BehaviorSubject({ games: [], categories: [] });
 
   constructor(private http: Http) {
 
@@ -61,8 +54,9 @@ export class GameService {
           const gamesAndCategories = this.mapGames(json);
           this.allGames.next(gamesAndCategories.games);
           this.allCategories.next(gamesAndCategories.categories);
+          this.gameCategoryBundle.next(gamesAndCategories);
         });
-    }, 1000);
+    }, 100);
   }
 
   /**

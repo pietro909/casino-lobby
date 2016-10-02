@@ -25,12 +25,22 @@ export class CategorySelector {
   category: CategoryLabel;
 
   @Input()
+  selected: Boolean;
+
+  @Input()
   store: Store<any>;
+
+  ngOnInit() {
+    if (this.selected) {
+      
+      console.log(`selected ${this.category.slug}`);
+    }
+  }
 
   onClick() {
     this.store.dispatch({
       type: CategorySelector.StoreEvents.selectCategory,
-      payload: this.category.name
+      payload: this.category.slug
     });
   }
 

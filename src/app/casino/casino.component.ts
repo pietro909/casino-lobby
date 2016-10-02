@@ -6,20 +6,29 @@ import { Game } from "../models";
 import { Category, CategoryLabel } from "../models/game.model";
 import {Store} from "@ngrx/store";
 import {CasinoState} from "./casino.state";
+import {CategorySelector} from './category-selector';
 
 
 
 @Component({
   selector: 'casino',
+  styleUrls: [
+    './casino.style.scss'
+  ],
   template: `
     <h1>Casino</h1>
-    <div>
+    <article>
       <header>
         <!-- game categories -->
         <ul>
           <li *ngFor="let label of categoriesLabels">
-            <category-selector [category]="label" [store]="store"></category-selector>
+            <category-selector
+              [category]="label"
+              [store]="store"
+              [selected]="label.slug === defaultCategory">
+            </category-selector>
         </ul>
+        <search-box [store]="store"></search-box>
         <!-- game search -->
       </header>
       <section>
@@ -30,19 +39,21 @@ import {CasinoState} from "./casino.state";
             </li>
         </ul>
       </section>
-    </div>
+    </article>
   `
 })
 export class Casino {
 
   static StoreEvents = {
     newGames: `CasinoComponent:newGames`,
-    newCategories: `CasinoComponent:newCategories`
+    newCategories: `CasinoComponent:newCategories`,
+    newBundle: `CasinoComponent:newBundle`
   };
 
   private games: Game[];
 
   categoriesLabels: CategoryLabel[];
+  defaultCategory: string = 'popular-games';
   casinoState: Observable<CasinoState>;
 
   constructor(
@@ -70,20 +81,19 @@ export class Casino {
         }
       });
       this.games = state.filteredGames;
+      // this.defaultCategory = state.filters.category;
     });
 
-    this.gameService.allGames.subscribe(games =>
+    this.gameService.gameCategoryBundle.subscribe(gameCategoryBundle => {
       this.store.dispatch({
-        type: Casino.StoreEvents.newGames,
-        payload: games
-      })
-    );
+        type: Casino.StoreEvents.newBundle,
+        payload: gameCategoryBundle
+      });
+    });
 
-    this.gameService.allCategories.subscribe(categories => {
-      this.store.dispatch({
-        type: Casino.StoreEvents.newCategories,
-        payload: categories
-      })
+    this.store.dispatch({
+      type: CategorySelector.StoreEvents.selectCategory,
+      payload: this.defaultCategory
     });
   }
 
