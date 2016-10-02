@@ -1,19 +1,36 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  trigger,
+  state,
+  style,
+  transition,
+  animate } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GameService } from '../services/game.service';
 import { Observable } from 'rxjs';
 import { Game } from "../models";
 import { Category, CategoryLabel } from "../models/game.model";
-import {Store} from "@ngrx/store";
-import {CasinoState} from "./casino.state";
-import {CategorySelector} from './category-selector';
-
+import { Store } from "@ngrx/store";
+import { CasinoState } from "./casino.state";
+import { CategorySelector } from './category-selector';
 
 
 @Component({
   selector: 'casino',
   styleUrls: [
     // './casino.style.scss'
+  ],
+  animations: [
+    trigger('thumbnailState', [
+      state('inactive', style({
+        transform: 'scale(1)'
+      })),
+      state('active',   style({
+        transform: 'scale(1.1)'
+      })),
+      transition('inactive => active', animate('125ms ease-in')),
+      transition('active => inactive', animate('250ms ease-out'))
+    ])
   ],
   template: `
     <div class="page-header">
@@ -37,8 +54,14 @@ import {CategorySelector} from './category-selector';
       <section>
         <!-- games -->
         <ul>
-            <li *ngFor="let game of games">
-                <game-thumbnail [game]="game"></game-thumbnail>
+            <li *ngFor="let game of games"> 
+              <game-thumbnail
+                class="col-xs-6 col-md-3"
+                [@thumbnailState]="(activeGame && (game.id === activeGame.id)) ? 'active' : 'inactive'"
+                [game]="game"
+                [baseUrl]="'#/game'"
+                (mouseover)="onMouseOverThumnail(game)"
+                (mouseleave)="onMouseOverThumnail(null)"></game-thumbnail>
             </li>
         </ul>
       </section>
@@ -58,6 +81,8 @@ export class Casino {
   categoriesLabels: CategoryLabel[];
   currentCategory: string = 'popular-games';
   casinoState: Observable<CasinoState>;
+  currentState = 'inactive';
+  activeGame: Game = null;
 
   constructor(
     public route: ActivatedRoute,
@@ -98,6 +123,10 @@ export class Casino {
       type: CategorySelector.StoreEvents.selectCategory,
       payload: this.currentCategory
     });
+  }
+
+  onMouseOverThumnail(game: Game) {
+    this.activeGame = game;
   }
 
 }

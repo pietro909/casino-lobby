@@ -10,7 +10,7 @@ const initialState: CasinoState = {
   allCategories: [],
   filteredGames: [],
   filters: {
-    category: null,
+    category: 'popular-games',
     name: null
   }
 };
@@ -61,12 +61,12 @@ export const GamesReducer: ActionReducer<CasinoState> =
           });
       case SearchBox.StoreEvents.text:
         const name = (action.payload.length > 0) ? action.payload : null;
-        const fallback: () => Game[] =
+        const orElse: () => Game[] =
           safeFilterByCategory.bind(this, state.allCategories, state.filters.category, state.allGames);
         const filteredGames = safeFilterByName(
           state.filteredGames,
           name,
-          fallback
+          orElse
         );
         return Object.assign({}, state, {
           filteredGames: filteredGames,

@@ -5,6 +5,7 @@ import { Game, Category, GameCategoryBundle } from "../models";
 
 const GAMES_API = `https://staging-frontapi.cherrytech.com`;
 const ALL_GAMES = `${GAMES_API}/game-categories`;
+const GAME_BY_ID = `${GAMES_API}/games/{id}`
 const HEADERS = new Headers({
   'CherryTech-Brand': 'cherrycasino.desktop',
   'Accept-Language': 'en-GB'
@@ -60,17 +61,19 @@ export class GameService {
   }
 
   /**
-   * Transforms the response's body from the server into an array of all games.
-   * Builds also the array of Categories with references games.
-   * @param body the response's body
-   * @returns {Game[]}
+   * Retrieves game based on the id from the server
+   * @param id the game's id
+   * @return {Observable<Game>}
    */
-  private mapGames(body: GameResponse): GameCategoryBundle {
-    const allGames: Game[] = [];
+  getGameById(id: String): Observable<Game> {
+    const url = GAME_BY_ID.replace(/{id}/, id);
+    return this.http.get(url, REQUEST_OPTIONS)
+      .map((response: any) => JSON.parse(response._body))
+      .map(this.mapRawGame)
+  }
 
-    const categories: Category[] = body._embedded.game_categories.map(category => {
-      const games = category._embedded.games.map(rawGame => {
-        const game: Game = {
+  private mapRawGame(rawGame: Json): Game {
+    return <Game> {
           background: rawGame['background'],
           thumbnail: rawGame['thumbnail'],
           id: rawGame['id'],
@@ -79,11 +82,25 @@ export class GameService {
           label: rawGame['label'],
           rating: rawGame['rating'],
           slug: rawGame['slug'],
-          height: rawGame['height'],
+          height: parseInt(rawGame['height'], 10),
           width: rawGame['width'],
           rows: rawGame['rows'],
           cols: rawGame['cols']
         };
+  }
+
+  /**
+   * Transforms the response's body from the server into an array of all games.
+   * Builds also the array of Categories with references games.
+   * @param body the response's body
+   * @returns {Observable<Game[]>}
+   */
+  private mapGames(body: GameResponse): GameCategoryBundle {
+    const allGames: Game[] = [];
+
+    const categories: Category[] = body._embedded.game_categories.map(category => {
+      const games = category._embedded.games.map(rawGame => {
+        const game: Game = this.mapRawGame(rawGame);
         allGames.push(game);
         return game;
       });

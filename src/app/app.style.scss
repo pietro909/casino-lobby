@@ -5,6 +5,11 @@ $white: white;
 $background: $white;
 $black: black;
 
+html, body, app, main, article {
+  height: 100%;
+}
+
+
 ul {
   list-style-type: none;
   &.categories {
@@ -53,3 +58,28 @@ main.container {
 a {
   color: $white;
 }
+
+// todo: component's custom SASS should go in the component
+game-view {
+  display: block;
+  height: 100%;
+}
+
+.game-window {
+  background-color: rgba(240, 99, 76, 0.43);
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  img {
+    margin: auto;
+  }
+  h1, h3, p {
+    text-align: center;
+    color: $white;
+  }
+}
+
+.game-window-container {
+  display: flex;
+}
+

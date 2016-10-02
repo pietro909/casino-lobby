@@ -1,0 +1,63 @@
+{  
+   "background":"https:\/\/d32fpk1qdfr4aq.cloudfront.net\/media\/game\/GenericCasinoNEW.jpg?u=1457954482",
+   "cols":null,
+   "description":"",
+   "game_stakes":null,
+   "height":"360",
+   "label":null,
+   "name":"Joker Millions",
+   "rows":null,
+   "slug":"joker-millions",
+   "thumbnail":"https:\/\/d32fpk1qdfr4aq.cloudfront.net\/media\/game\/desktop\/lobby\/150x140-joker-millions.jpg?u=1457954482",
+   "vendor":"yggdrasil",
+   "vendor_id":"7312",
+   "vendor_properties":{  
+      "gameid":"7312",
+      "lang":"en",
+      "curr":"EUR",
+      "org":"Demo",
+      "channel":"pc",
+      "key":"",
+      "home":""
+   },
+   "width":"640",
+   "id":"yggdrasil-joker-millions",
+   "url":"https:\/\/staticstaging.yggdrasilgaming.com\/init\/launchClient.html?gameid=7312\u0026lang=en\u0026curr=EUR\u0026org=Demo\u0026channel=pc\u0026key=\u0026home=",
+   "created_at":{  
+      "date":"2015-04-13 11:05:48.000000",
+      "timezone_type":1,
+      "timezone":"+00:00"
+   },
+   "sq_thumbnail":null,
+   "screenshot":null,
+   "homepage_image":null,
+   "meta":{  
+      "description_short":"",
+      "currency":"EUR",
+      "jackpot":910826.96,
+      "bonus":false
+   },
+   "enabled":true,
+   "volatility":0,
+   "rating":0,
+   "backgrounds":[  
+      "https:\/\/d32fpk1qdfr4aq.cloudfront.net\/media\/game\/GenericCasinoNEW.jpg?u=1457954482"
+   ],
+   "screenshots":[  
+
+   ],
+   "thumbnails":{  
+      "280x280":"https:\/\/d32fpk1qdfr4aq.cloudfront.net\/media\/games\/yggdrasil\/7312\/yggdrasil-7312-T280x280.jpg?u=1457954482",
+      "280x600":"https:\/\/d32fpk1qdfr4aq.cloudfront.net\/media\/games\/yggdrasil\/7312\/yggdrasil-7312-T280x600.jpg?u=1457954482",
+      "500x375":"https:\/\/d32fpk1qdfr4aq.cloudfront.net\/media\/games\/yggdrasil\/7312\/yggdrasil-7312-T500x375.jpg?u=1457954482",
+      "600x280":"https:\/\/d32fpk1qdfr4aq.cloudfront.net\/media\/games\/yggdrasil\/7312\/yggdrasil-7312-T600x280.jpg?u=1457954482",
+      "legacy":"https:\/\/d32fpk1qdfr4aq.cloudfront.net\/media\/game\/desktop\/lobby\/150x140-joker-millions.jpg?u=1457954482"
+   },
+   "pos_x":null,
+   "pos_y":null,
+   "_links":{  
+      "self":{  
+         "href":"https:\/\/staging-frontapi.cherrytech.com\/games\/yggdrasil-joker-millions"
+      }
+   }
+}

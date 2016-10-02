@@ -1,8 +1,9 @@
 import { NgModule, ApplicationRef } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
+import { LazyLoadImageModule } from 'ng2-lazyload-image';
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -18,6 +19,7 @@ import { Casino } from './casino';
 import { SERVICES } from './services';
 import { NoContent } from './no-content';
 import { GameThumbnail } from './casino/game-thumbnail.component';
+import { GameView } from './casino';
 import { CategorySelector } from './casino/category-selector';
 import { StoreModule } from "@ngrx/store";
 import { GamesReducer } from './casino/game.reducer'
@@ -43,13 +45,15 @@ const storeManager = StoreModule.provideStore({ casinoLobby: GamesReducer });
     NoContent,
     GameThumbnail,
     CategorySelector,
-    SearchBox
+    SearchBox,
+    GameView
   ],
   imports: [ // import Angular's modules
     BrowserModule,
     FormsModule,
     HttpModule,
     storeManager,
+    LazyLoadImageModule,
     RouterModule.forRoot(ROUTES, { useHash: true })
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
